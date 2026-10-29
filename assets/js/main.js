@@ -15,7 +15,7 @@ const CASE_STUDIES = {
   },
   supervisor: {
     category: '02 / OPERATIONAL ANALYTICS · ANDROID + iOS',
-    title: '112 Supervisor',
+    title: 'NG Supervisor',
     description: 'A supervisory mobile application for monitoring emergency response activities and viewing operational statistics through clear, API-driven dashboards.',
     contributions: [
       'Delivered a Flutter-based application for Android and iOS.',
@@ -40,7 +40,7 @@ const CASE_STUDIES = {
   },
   pft: {
     category: '04 / FIELD OPERATIONS · ANDROID',
-    title: 'Police Force Terminal (PFT / MDT)',
+    title: 'Portable Field Terminal (PFT / MDT)',
     description: 'An officer-facing emergency response application for dispatch support, event handling and field operations, published for Android.',
     contributions: [
       'Developed the Flutter application using GetX with an MVC-style project architecture.',
@@ -61,7 +61,7 @@ const themeToggle = $('#theme-toggle');
 function setTheme(theme) {
   root.dataset.theme = theme;
   if (themeToggle) themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-  try { localStorage.setItem('ashik-portfolio-theme', theme); } catch (_) {}
+  try { localStorage.setItem('ashik-portfolio-theme', theme); } catch (_) { }
 }
 try { setTheme(localStorage.getItem('ashik-portfolio-theme') === 'light' ? 'light' : 'dark'); }
 catch (_) { setTheme('dark'); }
