@@ -11,7 +11,11 @@ const CASE_STUDIES = {
       'Implemented SMS fallback and Firebase push notification handling.',
       'Participated in production delivery for Google Play and Apple App Store.'
     ],
-    technologies: ['Flutter', 'Dart', 'REST APIs', 'Firebase', 'Location services']
+    technologies: ['Flutter', 'Dart', 'REST APIs', 'Firebase', 'Location services'],
+    storeLinks: {
+      android: "https://play.google.com/store/apps/details?id=in.cdac.ners.psa.mobile.android.national&hl=en_IN",
+      ios: "https://apps.apple.com/in/app/112-india/id1441951304"
+    }
   },
   supervisor: {
     category: '02 / OPERATIONAL ANALYTICS · ANDROID + iOS',
@@ -23,7 +27,11 @@ const CASE_STUDIES = {
       'Built district-level views, event metrics and interactive reporting charts.',
       'Integrated backend REST APIs for current operational information.'
     ],
-    technologies: ['Flutter', 'Dart', 'REST APIs', 'Data visualization', 'Charts']
+    technologies: ['Flutter', 'Dart', 'REST APIs', 'Data visualization', 'Charts'],
+    storeLinks: {
+      android: "https://play.google.com/store/apps/details?id=in.cdac.ngerss.supervisor.national&hl=en_IN",
+      ios: null
+    }
   },
   nhai: {
     category: '03 / HIGHWAY SERVICES · ANDROID + iOS',
@@ -36,7 +44,11 @@ const CASE_STUDIES = {
       'Built route-planning and toll plaza information features with map integration.',
       'Integrated payment-related flows, complaints, feedback and REST APIs.'
     ],
-    technologies: ['Kotlin', 'Java', 'Swift', 'SwiftUI', 'Mappls', 'REST APIs']
+    technologies: ['Kotlin', 'Java', 'Swift', 'SwiftUI', 'Mappls', 'REST APIs'],
+    storeLinks: {
+      android: "https://play.google.com/store/apps/details?id=com.nhai.rajmargyatra&hl=en_IN",
+      ios: "https://apps.apple.com/in/app/rajmargyatra/id6449488412"
+    }
   },
   pft: {
     category: '04 / FIELD OPERATIONS · ANDROID',
@@ -48,7 +60,11 @@ const CASE_STUDIES = {
       'Implemented real-time and background location tracking and map-based features.',
       'Integrated REST APIs, push notifications and application reliability features.'
     ],
-    technologies: ['Flutter', 'Dart', 'GetX', 'Google Maps', 'REST APIs', 'Background services']
+    technologies: ['Flutter', 'Dart', 'GetX', 'Google Maps', 'REST APIs', 'Background services'],
+    storeLinks: {
+      android: "https://play.google.com/store/apps/details?id=in.cdac.ngerss.mdt.national&hl=en_IN",
+      ios: null
+    }
   }
 };
 
@@ -116,7 +132,64 @@ function showCaseStudy(key) {
     const tag = document.createElement('span');
     tag.textContent = entry;
     return tag;
-  }));
+  }));// Render application store links
+  const storeSection = document.getElementById(
+    "dialog-store-section"
+  );
+
+  const storeContainer = document.getElementById(
+    "dialog-store-links"
+  );
+
+  storeContainer.replaceChildren();
+
+  const stores = [
+    {
+      key: "android",
+      label: "Google Play",
+      subtitle: "GET IT ON",
+      icon: "googleplay"
+    },
+    {
+      key: "ios",
+      label: "App Store",
+      subtitle: "DOWNLOAD ON THE",
+      icon: "apple"
+    }
+  ];
+
+  stores.forEach(store => {
+    const url = project.storeLinks?.[store.key];
+
+    if (!url || !/^https:\/\//i.test(url)) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.className = "store-button";
+
+    // Actual brand icon, styled using CSS
+    const icon = document.createElement("span");
+    icon.className = `store-brand-icon icon-${store.icon}`;
+    icon.setAttribute("aria-hidden", "true");
+
+    const content = document.createElement("span");
+    content.className = "store-content";
+
+    const subtitle = document.createElement("small");
+    subtitle.textContent = store.subtitle;
+
+    const title = document.createElement("strong");
+    title.textContent = store.label;
+
+    content.append(subtitle, title);
+    link.append(icon, content);
+    storeContainer.appendChild(link);
+  });
+
+  storeSection.hidden = storeContainer.children.length === 0;
+
   if (!dialog.open) dialog.showModal();
 }
 $$('[data-project]').forEach(button => button.addEventListener('click', () => showCaseStudy(button.dataset.project)));
